@@ -9,7 +9,9 @@ public class ThreadStartClass {
 	public static void main(String[] args) {
 		
 		SausageStand Stand = new SausageStand(MaxSausagesPerClient);
-		System.out.println("Welcome to our sausage sizzle sale");
+		System.out.println("  ");
+		System.out.println("################# Welcome to our sausage sizzle sale ###########################");
+		System.out.println("  ");
 		
 		Barbeque producer1 = new Barbeque(Stand);
 		
@@ -19,7 +21,7 @@ public class ThreadStartClass {
 		Thread Barbeque1Thread = new Thread(producer1,"Barbeque 1");
 		Thread Customer1Thread = new Thread(customer1,"Customer 1");
 		
-		System.out.println("Starting our Barbeque thread 1 " + Barbeque1Thread.getName());
+		//System.out.println("Starting our Barbeque thread 1 " + Barbeque1Thread.getName());
 		
 		Barbeque1Thread.start();
 		Customer1Thread.start();
