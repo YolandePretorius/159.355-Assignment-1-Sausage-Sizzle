@@ -12,8 +12,10 @@ public class Barbeque implements Runnable {
 	
 	
 	public void run() {
+		for (int i = 0; i < 5; i++) {
 		System.out.println("Current Thread running: "+Thread.currentThread().getName());
-		SausageStand.ProduceSausage();
+		SausageStand.ProduceSausage(i);
+		}
 	}
 
 
