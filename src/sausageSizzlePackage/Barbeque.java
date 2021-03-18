@@ -4,19 +4,23 @@ package sausageSizzlePackage;
 
 public class Barbeque implements Runnable {
 	
-	SausageStand stand;
-	
+	 SausageStand stand;
+	 private Boolean stop = false;
+	 int i =0;
+	 
 	public Barbeque(SausageStand s) {
 		stand = s;
+		
 	}
 	
 	
 	public void run() {
 		
-		for (int i = 0; i < 5; i++) {
-		System.out.println("BBQ name: "+Thread.currentThread().getName());
-		SausageStand.ProduceSausage(i);
-		System.out.println(" ");
+		
+		while(i<30) {
+			i++;
+			SausageStand.ProduceSausage(i);
+			System.out.println(" ");
 		try {
 			Thread.sleep(150);
 		} catch (InterruptedException e) {
@@ -26,7 +30,13 @@ public class Barbeque implements Runnable {
 		}
 	}
 
+	public Boolean getStop() {
+        return stop;
+    }
 
+    public void setStop(Boolean stop) {
+        this.stop = stop;
+    }       
 	
 
 }

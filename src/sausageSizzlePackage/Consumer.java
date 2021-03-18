@@ -18,16 +18,18 @@ public class Consumer implements Runnable {
 		System.out.println("Total number of sausages "+Thread.currentThread().getName()+" wants to buy: " + x);
 		for (int i = 1; i <= x; i++) {
 			
-			System.out.println(Thread.currentThread().getName()+" has already bought: "+i+" number of sausages");
+			//System.out.println(Thread.currentThread().getName()+" has already bought: "+i+" number of sausages");
 			try {
 				SausageStand.buySausage(i);
+				//System.out.println(Thread.currentThread().getName()+" has already bought: "+i+" number of sausages");
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			
 			}
 			
 			try {
-				Thread.sleep(300);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
