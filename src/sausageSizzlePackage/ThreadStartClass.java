@@ -1,5 +1,10 @@
 package sausageSizzlePackage;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+
 public class ThreadStartClass {
 	
 	static int MaxSausagesPerClient = 3;
@@ -7,7 +12,7 @@ public class ThreadStartClass {
 	
 
 	public static void main(String[] args) throws InterruptedException {
-		
+		ArrayList<Thread> threads = new ArrayList<Thread>();
 		SausageStand Stand = new SausageStand(MaxSausagesPerClient);
 		
 		System.out.println("  ");
@@ -21,25 +26,34 @@ public class ThreadStartClass {
 		
 		Thread Barbeque1Thread = new Thread(producer1,"Barbeque 1");
 		Thread Barbeque2Thread = new Thread(producer2,"Barbeque 2");
+		//Thread Customer1Thread = new Thread(customer1,"Customer# ");
 		
+		//Customer1Thread.start();
 		Barbeque1Thread.start();
 		Barbeque2Thread.start();
 		
-		for (int i = 1; i <= 5; i++) {
+		
+		// generate 100 threads which will be customers and add them to a list threads
+		for (int i = 1; i <= 100; i++) {
 			Thread Customer1Thread = new Thread(customer1,"Customer# "+i);
+			threads.add(Customer1Thread);
 			Customer1Thread.start();
 		}
+	// interupts the customer threads that is in the threads list and stops them
+		for (Thread thread : threads) {
+				thread.interrupt();
+				thread.join();
+		}
 		
-		Thread.sleep(2000);
-		producer1.setStop(true);
-		producer2.setStop(true);
+
+		Barbeque1Thread.interrupt();
+		Barbeque2Thread.interrupt();
 		
-		//Thread Customer1Thread = new Thread(customer1,"Customer 1");
+		Barbeque1Thread.join();
+		Barbeque2Thread.join();
 		
-		//System.out.println("Starting our Barbeque thread 1 " + Barbeque1Thread.getName());
+		System.out.println("Thank you for your support!!!!!!!!!!!");
 		
-		
-		//Customer1Thread.start();
 	}
 
 }

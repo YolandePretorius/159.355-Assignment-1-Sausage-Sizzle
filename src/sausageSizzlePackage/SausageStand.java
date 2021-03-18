@@ -5,16 +5,17 @@ import java.util.NoSuchElementException;
 
 public class SausageStand {
 	
-	static LinkedList<Integer> NumberSausagesProduced = new LinkedList<Integer>();
+	static LinkedList<Integer> NumberSausagesProduced = new LinkedList<Integer>(); // add and remove sausages to a list synchronized
 	int maxSausagesPerClient;
 	
 
 	public SausageStand(int maxSausagesPerClient) {
-		this.maxSausagesPerClient = maxSausagesPerClient;
+		this.maxSausagesPerClient = maxSausagesPerClient; // determines the maximum amount of sausages customer are allowed to buy in this case 3
 		
 	}
+	// add sausages to NumberSausagesProduced list 
+	public static synchronized  void ProduceSausage(int i)  {
 
-	public static synchronized  void ProduceSausage(int i) {
 		try {
 			NumberSausagesProduced.add(i);
 			System.out.println(Thread.currentThread().getName() + " has another sausage ready. Total sausages available is "+ NumberSausagesProduced.size());
@@ -25,18 +26,17 @@ public class SausageStand {
 		}
 	}
 
+	// remove sausages from NumberSausagesProduced list
+	public static synchronized  void buySausage(int i) {
 	
-	public static synchronized  void buySausage(int i) throws InterruptedException {
-		try {
 			NumberSausagesProduced.remove();
-			System.out.println("There is: "+NumberSausagesProduced.size()+" sausages left after  "+ Thread.currentThread().getName()+ " have bought "+i+" sausage");
+			System.out.println("There is: "+NumberSausagesProduced.size()+" sausages left after  "+ Thread.currentThread().getName()+ " have bought sausage nr: "+i);
 			System.out.println("-------------------------------------------");
 			System.out.println(" ");
-			Thread.sleep(200);
-		}catch(NoSuchElementException e){
 			
+			
+		
 		}
-	}
 	
 	
 

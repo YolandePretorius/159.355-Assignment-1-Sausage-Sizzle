@@ -1,5 +1,8 @@
+
+
 package sausageSizzlePackage;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Consumer implements Runnable {
@@ -13,26 +16,17 @@ public class Consumer implements Runnable {
 	@Override
 	public void run() {
 		Random randomNumber = new Random();
-		int x =randomNumber.nextInt(3-1+1) + 1;
-		System.out.println("CLIENT: " +Thread.currentThread().getName());
+		int x =randomNumber.nextInt(3-1+1) + 1;// randomly assign the amount of sausages customer will buy between 1 and 3 
+		
 		System.out.println("Total number of sausages "+Thread.currentThread().getName()+" wants to buy: " + x);
-		for (int i = 1; i <= x; i++) {
-			
-			//System.out.println(Thread.currentThread().getName()+" has already bought: "+i+" number of sausages");
+		for (int i = 1; i <= x; i++) { // loop through the random amount of sausages customer will buy
 			try {
-				SausageStand.buySausage(i);
-				//System.out.println(Thread.currentThread().getName()+" has already bought: "+i+" number of sausages");
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			
-			}
-			
+				Thread.sleep(500);  // wait for sausages to be produced
+			} catch (InterruptedException e) {}
 			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			SausageStand.buySausage(i);
+			}catch(NoSuchElementException e) {
+				i--;  // if there is no sausages available for the client to buy, the thread runs an extra time to check for sausages
 			}
 		
 		}
